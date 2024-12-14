@@ -9,6 +9,18 @@
             background: linear-gradient(to bottom right, #a8e0ff, #f0f8ff);
             font-family: Arial, sans-serif;
         }      
+        .dateimg.active {
+            border: 3px solid green;
+            border-radius: 5px;
+        }
+        .dateimg {
+            width: 30px;
+            height: auto;
+            margin-top: 1px;
+            vertical-align: middle;
+            cursor: pointer;
+            transition: filter 0.3s;
+        }
         .section {
             background-color: rgba(255, 255, 255, 0.9);
             padding: 20px;
@@ -80,10 +92,10 @@
                     </div>
                     <div class="weather-icons">
                         <tr>날씨:</tr>
-                        <img src="clear.jpg">
-                        <img src="cloudy.jpg">
-                        <img src="rainy.jpg">
-                        <img src="snow.jpg">
+                        <img src="clear.jpg" class="dateimg" data-weather="맑음" />
+                        <img src="cloudy.jpg" class="dateimg" data-weather="흐림" />
+                        <img src="rainy.jpg" class="dateimg" data-weather="눈" />
+                        <img src="snow.jpg" class="dateimg" data-weather="비" />
                     </div>
                 </div>
 
@@ -157,13 +169,18 @@
                 </table>
             </div>
         </div>
-        <div class="section">
-            <button id="nextpage" onclick="nextpage()">다음 페이지</button>
             <script>
-                document.getElementById("nextpage").addEventListener("click", () => {
-                window.location.href = "48p.html";
+        const weatherimages = document.querySelectorAll(".dateimg");
+            weatherimages.forEach((img, index) => {
+                img.addEventListener("click", () => {
+                    img.classList.toggle("active");
+                    const weatherconditions = ["맑음", "흐림", "눈", "비"];
+                    selectedweather = img.classList.contains("active")
+                        ? weatherconditions[index]
+                        : "";
                 });
-            </script>
-        </div>
+        });
+    </script>
     </body>
+
 </html>
